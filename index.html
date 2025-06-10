@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>สุ่มสีฝึกปฏิกิริยา</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+    }
+    #controls {
+      position: absolute;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    button, input {
+      font-size: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <div>
+    <label for="interval">ตั้งเวลาสุ่ม (วินาที): </label>
+    <input type="number" id="interval" value="3" min="1" max="10">
+  </div>
+  <button onclick="startAuto()">▶ เริ่มสุ่มอัตโนมัติ</button>
+  <button onclick="stopAuto()">⏹ หยุดสุ่ม</button>
+  <button onclick="changeColor()">🎨 เปลี่ยนสีด้วยตนเอง</button>
+</div>
+
+<script>
+  const colors = ["red", "blue", "white", "yellow"];
+  let intervalId = null;
+
+  function changeColor() {
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    document.body.style.backgroundColor = color;
+  }
+
+  function startAuto() {
+    const seconds = parseInt(document.getElementById("interval").value);
+    if (intervalId) clearInterval(intervalId);
+    changeColor();
+    intervalId = setInterval(changeColor, seconds * 1000);
+  }
+
+  function stopAuto() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+  }
+</script>
+
+</body>
+</html>
